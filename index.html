@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kim Roung — Graphic Designer</title>
+  <meta name="description" content="Portfolio of a graphic designer: branding, posters, social media, and illustration." />
+  <style>
+    :root{
+      --bg: #0b0d10;
+      --surface:#12151a;
+      --surface-2:#181c22;
+      --text:#e7ecf3;
+      --muted:#9aa6b2;
+      --brand:#7c94ff;
+      --brand-2:#55d6a8;
+      --accent:#ffd166;
+      --ring: rgba(124,148,255,.45);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    /* Light mode (toggled via JS) */
+    .light{
+      --bg:#f7f9fc; --surface:#ffffff; --surface-2:#f0f3f8; --text:#0e141b; --muted:#5b6773; --ring: rgba(124,148,255,.35);
+    }
+
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--text); font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    .container{width:min(1100px, 92%); margin-inline:auto}
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    /* header */
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(140%) blur(8px);
+      background:linear-gradient(180deg, rgba(18,21,26,.85), rgba(18,21,26,.55) 60%, rgba(18,21,26,0));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:36px; height:36px; border-radius:12px; background:linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow:var(--shadow); display:grid; place-items:center; font-weight:800}
+    .logo span{font-size:18px; color:white}
+    .nav a{opacity:.9}
+    .nav-links{display:flex; gap:20px; align-items:center}
+    .btn, button{
+      display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.08); background:var(--surface);
+      transition:.2s ease; cursor:pointer; color:var(--text)
+    }
+    .btn:hover{transform:translateY(-1px); box-shadow:var(--shadow)}
+    .btn.primary{background:linear-gradient(135deg, var(--brand), var(--brand-2)); border-color:transparent}
+    .btn.ghost{background:transparent}
+    .mode-toggle{border:1px solid rgba(255,255,255,.12); background:var(--surface-2)}
+
+    /* hero */
+    .hero{display:grid; grid-template-columns:1.2fr .8fr; gap:36px; padding:56px 0 24px}
+    .hero-card{background:linear-gradient(180deg, var(--surface), var(--surface-2)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:32px; box-shadow:var(--shadow)}
+    .kicker{font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-size:12px}
+    h1{margin:10px 0 14px; font-size:42px; line-height:1.15}
+    .lead{color:var(--muted); font-size:18px}
+    .hero-actions{display:flex; gap:12px; margin-top:22px; flex-wrap:wrap}
+    .hero-art{border-radius:var(--radius); overflow:hidden; border:1px solid rgba(255,255,255,.08)}
+
+    /* section */
+    section{padding:48px 0}
+    .section-head{display:flex; align-items:end; justify-content:space-between; margin-bottom:22px}
+    .section-title{font-size:28px; margin:0}
+    .section-sub{color:var(--muted); font-size:14px}
+
+    /* badges */
+    .badges{display:flex; gap:8px; flex-wrap:wrap}
+    .badge{font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:var(--surface-2)}
+
+    /* grid */
+    .grid{display:grid; gap:16px}
+    .grid.portfolio{grid-template-columns:repeat(3, 1fr)}
+    .grid.three{grid-template-columns:repeat(3, 1fr)}
+    .grid.two{grid-template-columns:repeat(2, 1fr)}
+
+    /* card */
+    .card{background:var(--surface); border:1px solid rgba(255,255,255,.08); border-radius:16px; overflow:hidden; transition:.25s ease; height:100%}
+    .card:hover{transform:translateY(-4px); box-shadow:var(--shadow)}
+    .card .thumb{aspect-ratio: 4/3; display:block; background:#0e1116; position:relative}
+    .card .thumb img{width:100%; height:100%; object-fit:cover}
+    .card .body{padding:14px 14px 18px}
+    .card h3{margin:6px 0 4px; font-size:18px}
+    .card p{margin:0; color:var(--muted); font-size:14px}
+    .chip{font-size:12px; padding:6px 10px; border-radius:999px; background:rgba(124,148,255,.12); border:1px solid rgba(124,148,255,.35)}
+
+    /* filter buttons */
+    .filters{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px}
+
+    /* about */
+    .about{display:grid; grid-template-columns:1fr 1fr; gap:22px}
+
+    /* contact */
+    form{display:grid; gap:12px}
+    input, textarea{font:inherit; color:var(--text); background:var(--surface-2); border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:12px 14px}
+    textarea{min-height:140px; resize:vertical}
+
+    /* footer */
+    footer{padding:36px 0 56px; color:var(--muted)}
+
+    /* responsive */
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr;}
+      .grid.portfolio{grid-template-columns:repeat(2, 1fr)}
+      .about{grid-template-columns:1fr}
+    }
+    @media (max-width: 560px){
+      .grid.portfolio, .grid.three, .grid.two{grid-template-columns:1fr}
+      h1{font-size:34px}
+      .nav-links{display:none}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header / Nav -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Home">
+        <div class="logo" aria-hidden="true"><span>HD</span></div>
+        <strong>Houy Dinal</strong>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a class="btn ghost" href="#resume">Resume</a>
+      </nav>
+      <button class="mode-toggle" id="modeToggle" title="Toggle light/dark" aria-label="Toggle color mode">🌙</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main id="top" class="container">
+    <section class="hero" aria-labelledby="intro-title">
+      <div class="hero-card">
+        <div class="kicker">Graphic Designer • Branding • Social</div>
+        <h1 id="intro-title">Crafting bold visuals that make brands unforgettable.</h1>
+        <p class="lead">I design logos, identities, posters, packaging, and social media content. Fast turnarounds, clean files, and pixel‑perfect exports.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#work">View Work</a>
+          <a class="btn" href="#contact">Get a Quote</a>
+        </div>
+        <div class="badges" style="margin-top:18px">
+          <span class="badge">Adobe Photoshop</span>
+          <span class="badge">Illustrator</span>
+          <span class="badge">InDesign</span>
+          <span class="badge">Figma</span>
+        </div>
+      </div>
+      <div class="hero-art">
+        <!-- Replace with your hero image -->
+        <img src="426388815_1747535839063768_8355012893021967648_n.jpg" alt="Desk with design tools and colorful posters" />
+      </div>
+    </section>
+
+    <!-- Work / Portfolio -->
+    <section id="work" aria-labelledby="work-title">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" id="work-title">Selected Work</h2>
+          <div class="section-sub">A mix of branding, posters, social media, and packaging.</div>
+        </div>
+      </div>
+
+      <div class="filters" role="tablist" aria-label="Filter work by category">
+        <button class="btn ghost chip" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button class="btn ghost" data-filter="branding" role="tab">Branding</button>
+        <button class="btn ghost" data-filter="poster" role="tab">Posters</button>
+        <button class="btn ghost" data-filter="social" role="tab">Social</button>
+        <button class="btn ghost" data-filter="packaging" role="tab">Packaging</button>
+      </div>
+
+      <div class="grid portfolio" id="portfolioGrid">
+        <!-- Portfolio card template: duplicate and change data-category, titles, and images -->
+        <article class="card" data-category="Coffee Menu">
+          <a class="thumb" href="#" aria-label="Coffee brand system (opens larger)">
+            <img src="10406280 copy.jpg" alt="Logo sketches and coffee branding mockups" />
+          </a>
+          <div class="body">
+            <div class="badges" style="margin-bottom:6px"><span class="chip">Menu</span></div>
+            <h3>Coffee Menu</h3>
+            <p>Logo, color system, packaging labels, and cafe signage.</p>
+          </div>
+        </article>
+
+        <article class="card" data-category="poster">
+          <a class="thumb" href="#">
+            <img src="Poster Promotion.jpg" alt="Vibrant gig poster mockup on a wall"/>
+          </a>
+          <div class="body">
+            <div class="badges" style="margin-bottom:6px"><span class="chip">Poster</span></div>
+            <h3>Shoes Poster</h3>
+            <p>Series of 6 posters exploring type-in-motion and gradients.</p>
+          </div>
+        </article>
+
+        <article class="card" data-category="social">
+          <a class="thumb" href="#">
+            <img src="486061826_1101684115307138_8767624515652250403_n.jpg" alt="Phone with social media carousel mockups" />
+          </a>
+          <div class="body">
+            <div class="badges" style="margin-bottom:6px"><span class="chip">Poster</span></div>
+            <h3>Skincare</h3>
+            <p>Content kits: stories, reels covers, product spotlight carousels.</p>
+          </div>
+        </article>
+
+        <article class="card" data-category="packaging">
+          <a class="thumb" href="#">
+            <img src="photo_2025-09-02_10-02-51.jpg" alt="Minimal packaging box and label design" />
+          </a>
+          <div class="body">
+            <div class="badges" style="margin-bottom:6px"><span class="chip">Packaging</span></div>
+            <h3>Milk Poster</h3>
+            <p>Eco-first packaging refresh with scalable dielines.</p>
+          </div>
+        </article>
+
+        <article class="card" data-category="Coffee Menu">
+          <a class="thumb" href="#">
+            <img src="" alt="Stationery set with logo and typography system" />
+          </a>
+          <div class="body">
+            <div class="badges" style="margin-bottom:6px"><span class="chip">Branding</span></div>
+            <h3>Studio Orchid</h3>
+            <p>Identity package: logomark, type scale, social templates.</p>
+          </div>
+        </article>
+
+        <article class="card" data-category="poster">
+          <a class="thumb" href="#">
+            <img src="" alt="Abstract poster with bold typography" />
+          </a>
+          <div class="body">
+            <div class="badges" style="margin-bottom:6px"><span class="chip">Poster</span></div>
+            <h3>Type & Texture</h3>
+            <p>Exploring variable fonts and paper grain overlays.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" aria-labelledby="services-title">
+      <div class="section-head">
+        <h2 class="section-title" id="services-title">Services</h2>
+        <div class="section-sub">Fixed-price bundles and custom quotes available.</div>
+      </div>
+
+      <div class="grid three">
+        <article class="card">
+          <div class="body">
+            <h3>Brand Starter</h3>
+            <p>Create a clean, versatile identity: logo, colors, typography, and a mini brand guide (PDF).</p>
+            <div class="badges" style="margin-top:10px">
+              <span class="badge">2–3 weeks</span>
+              <span class="badge">3 concepts</span>
+              <span class="badge">Source files</span>
+            </div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="body">
+            <h3>Social Kit</h3>
+            <p>Instagram & Facebook templates, story highlights, and post grids optimized for engagement.</p>
+            <div class="badges" style="margin-top:10px">
+              <span class="badge">1 week</span>
+              <span class="badge">Editable</span>
+              <span class="badge">Export presets</span>
+            </div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="body">
+            <h3>Packaging</h3>
+            <p>Box, label, and sticker designs with print-ready dielines and mockups.</p>
+            <div class="badges" style="margin-top:10px">
+              <span class="badge">CMYK + Spot</span>
+              <span class="badge">3D mockups</span>
+              <span class="badge">Printer-ready</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="section-head">
+        <h2 class="section-title" id="about-title">About</h2>
+        <div class="section-sub">Based in Phnom Penh • Available worldwide</div>
+      </div>
+      <div class="about">
+        <article class="card">
+          <div class="body">
+            <p>Hi! I’m <strong>Houy Dinal</strong>, a graphic designer specializing in brand systems and social content. I help startups and cafes level up their visuals with fast, friendly, and flexible design.</p>
+            <p>Tools I use daily: Photoshop, Illustrator, InDesign, Figma, and Blender for simple product renders.</p>
+            <div class="badges" style="margin-top:8px">
+              <span class="badge">English • Khmer</span>
+              <span class="badge">Remote‑friendly</span>
+              <span class="badge">GMT+7</span>
+            </div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="body">
+            <h3>Clients & Mentions</h3>
+            <ul>
+              <li>Lotus Café — Identity & packaging</li>
+              <li>Street Beats — Festival poster series</li>
+              <li>Glow Skincare — Monthly social content</li>
+            </ul>
+            <a class="btn" id="resume" href="#" onclick="alert('HOUY DINAL CV.pdf'); return false;">Download Resume (PDF)</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="section-head">
+        <h2 class="section-title" id="contact-title">Contact</h2>
+        <div class="section-sub">Tell me about your project. I usually reply within 24 hours.</div>
+      </div>
+      <div class="grid two">
+        <article class="card">
+          <div class="body">
+            <form name="contact" onsubmit="sendEmail(event)">
+              <label>
+                <div>Name</div>
+                <input required name="name" placeholder="Your name" />
+              </label>
+              <label>
+                <div>Email</div>
+                <input required type="email" name="email" placeholder="you@email.com" />
+              </label>
+              <label>
+                <div>What do you need?</div>
+                <textarea required name="message" placeholder="Logo, posters, social media kit, packaging…"></textarea>
+              </label>
+              <button class="btn primary" type="submit">Send Message</button>
+            </form>
+          </div>
+        </article>
+        <article class="card">
+          <div class="body">
+            <h3>Elsewhere</h3>
+            <p>Find more work and behind‑the‑scenes:</p>
+            <div class="badges" style="margin-top:10px">
+              <a class="badge" href="#" aria-label="Instagram">Instagram</a>
+              <a class="badge" href="#" aria-label="Behance">Behance</a>
+              <a class="badge" href="#" aria-label="Dribbble">Dribbble</a>
+              <a class="badge" href="#" aria-label="Facebook">Facebook</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap">
+        <small>© <span id="year"></span> Kim Roung. All rights reserved.</small>
+        <a class="btn ghost" href="#top">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Light/Dark mode with localStorage
+    const modeToggle = document.getElementById('modeToggle');
+    const applyMode = (m)=>{
+      if(m==='light'){ document.body.classList.add('light'); modeToggle.textContent='☀️'; }
+      else { document.body.classList.remove('light'); modeToggle.textContent='🌙'; }
+    }
+    const saved = localStorage.getItem('mode') || 'dark';
+    applyMode(saved);
+    modeToggle.addEventListener('click',()=>{
+      const newMode = document.body.classList.contains('light') ? 'dark' : 'light';
+      localStorage.setItem('mode', newMode); applyMode(newMode);
+    });
+
+    // Simple filter for portfolio
+    const grid = document.getElementById('portfolioGrid');
+    const buttons = document.querySelectorAll('[data-filter]');
+    buttons.forEach(btn=>btn.addEventListener('click',()=>{
+      buttons.forEach(b=>b.setAttribute('aria-selected','false'));
+      btn.setAttribute('aria-selected','true');
+      const f = btn.dataset.filter;
+      [...grid.children].forEach(card=>{
+        const show = f==='all' || card.dataset.category===f;
+        card.style.display = show ? '' : 'none';
+      })
+    }))
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Contact form via mailto
+    function sendEmail(e){
+      e.preventDefault();
+      const data = new FormData(e.target);
+      const name = encodeURIComponent(data.get('name'));
+      const email = encodeURIComponent(data.get('email'));
+      const message = encodeURIComponent(data.get('message'));
+      const subject = `New project from ${name}`;
+      const body = `Name: ${name}%0AEmail: ${email}%0A%0A${message}`;
+      window.location.href = `mailto:you@yourdomain.com?subject=${subject}&body=${body}`;
+    }
+  </script>
+</body>
+</html>
